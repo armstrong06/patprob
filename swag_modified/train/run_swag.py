@@ -237,6 +237,7 @@ model.to(args.device)
 if args.load_model is not None:
     print("Loading model:", args.load_model)
     check_point = torch.load(args.load_model)
+    print("Starting loss:", check_point["training_loss"])
     model.load_state_dict(check_point['model_state_dict'])
 
 if args.cov_mat:

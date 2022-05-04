@@ -89,12 +89,15 @@ def loaders(
     time_series_len,
     max_dt,
     dt, 
-    n_duplicate_train
+    n_duplicate_train, 
+    shuffle_train=True
 ):
+
+    np.random.seed(2482045)
     train_file = h5py.File(f'{path}/{train_file}', 'r')
     print('Train shape:', train_file['X'].shape)
     X_waves_train = train_file['X'][:]#[0:80000]
-    Y_train = train_file['Y'][:]#[0:80000]
+    # Y_train = train_file['Y'][:]#[0:80000]
     train_file.close()
     print("Randomizing start times...")
     X_train, Y_train = randomize_start_times_and_normalize(X_waves_train,
@@ -102,13 +105,12 @@ def loaders(
                                                            max_dt = max_dt, dt = dt,
                                                            n_duplicate = n_duplicate_train)
     train_dataset = NumpyDataset(X_train, Y_train)
-    params_train = {'batch_size': batch_size,
-                    'shuffle': True}
+
 
     validation_file = h5py.File('data/uuss_validation.h5', 'r')
     print('Validation shape:', validation_file['X'].shape)
     X_waves_validate = validation_file['X'][:]#[0:3200]
-    Y_validate = validation_file['Y'][:]#[0:3200]
+    # Y_validate = validation_file['Y'][:]#[0:3200]
     validation_file.close()
     print("Randomizing start times...")
     X_validate, Y_validate = randomize_start_times_and_normalize(X_waves_validate,
@@ -122,7 +124,7 @@ def loaders(
         "train": torch.utils.data.DataLoader(
             train_dataset,
             batch_size=batch_size,
-            shuffle=True,
+            shuffle=shuffle_train,
             num_workers=num_workers,
             pin_memory=True,
         ),
