@@ -5,6 +5,8 @@ import numpy as np
 import os
 import tqdm
 
+import sys
+sys.path.append("/home/armstrong/Research/git_repos/patprob/swag_modified")
 from swag import seismic_data, losses, models, utils
 from swag.posteriors import SWAG, KFACLaplace
 
@@ -179,7 +181,7 @@ if args.method == "HomoNoise":
 
 
 predictions = np.zeros((len(loaders["test"].dataset), 1))
-targets = np.zeros(len(loaders["test"].dataset))
+targets = np.zeros((len(loaders["test"].dataset), 1))
 print(targets.size)
 
 for i in range(args.N):
@@ -195,6 +197,7 @@ for i in range(args.N):
             loss.backward(create_graph=True)
             model.step(update_params=False)
 
+    # Do if Method is NOT SGD or Dropout
     if args.method not in ["SGD", "Dropout"]:
         sample_with_cov = args.cov_mat and not args.use_diag
         model.sample(scale=args.scale, cov=sample_with_cov)
@@ -229,9 +232,9 @@ for i in range(args.N):
 
     # Is the output of the swag model a probability or pick shift??
     residuals = targets - predictions
-    print("Residual Mean:", np.mean(residuals)/(i+1))
-    print("Residual STD:", np.std(residuals)/(i+1))
-    print("Residual RMS:", np.sqrt(np.sum(residuals**2))/len(residuals)/(i+1))
+    print("Residual Mean:", np.mean(residuals/(i+1)))
+    print("Residual STD:", np.std(residuals/(i+1)))
+    print("Residual RMS:", np.sqrt(np.sum(residuals**2/(i+1)))/len(residuals))
 
 # mean of sampled predictions
 predictions /= args.N
