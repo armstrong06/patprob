@@ -231,10 +231,10 @@ for i in range(args.N):
         k += input.size()[0]
 
     # Is the output of the swag model a probability or pick shift??
-    # residuals = targets[:, 0] - predictions[:, i]
-    # print("Residual Mean:", np.mean(residuals))
-    # print("Residual STD:", np.std(residuals))
-    # print("Residual RMS:", np.sqrt(np.sum(residuals**2))/len(residuals))
+    residuals = targets[:, 0] - predictions[:, i]
+    print("Residual Mean:", np.mean(residuals))
+    print("Residual STD:", np.std(residuals))
+    print("Residual RMS:", np.sqrt(np.sum(residuals**2))/len(residuals))
 
 # mean of sampled predictions - don't do this since storing all of them
 # predictions /= args.N
@@ -248,20 +248,7 @@ pred_std = np.std(predictions, axis=1)
 np.savez(args.save_path, predictions=predictions, targets=targets,
          prediction_mean=pred_mean, prediction_std=pred_std)
 
-param_columns = ["BatchSize", "SGD_lr", "WD", "Mom", "SWA_lr", "K"]
-param_values = [args.batch_size,
-                args.lr_init, 
-                args.wd, 
-                args.momentum, 
-                args.swa_lr, 
-                args.max_num_models
-]
-table = tabulate.tabulate([param_values], param_columns, tablefmt="simple", floatfmt="8.4f")
-table = table.split("\n")
-table = "\n".join([table[1]] + table)
-print(table)
-
-resids = target[:, 0] - pred_mean
+resids = targets[:, 0] - pred_mean
 of_mean, of_std = utils.compute_outer_fence_mean_standard_deviation(resids)
 print("Stats for sgd ensemble residuals")
 print("Mean    STD    OF_Mean    OF_STD")
