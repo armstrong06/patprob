@@ -114,8 +114,7 @@ def train_epoch(
 
     return {
         "loss": loss_sum / num_objects_current,
-        "accuracy": None if regression else correct / num_objects_current * 100.0,
-    }
+    } # "accuracy": None if regression else correct / num_objects_current * 100.0,
 
 
 def eval(loader, model, criterion, cuda=True, regression=False, verbose=False):
@@ -143,8 +142,7 @@ def eval(loader, model, criterion, cuda=True, regression=False, verbose=False):
 
     return {
         "loss": loss_sum / num_objects_total,
-        "accuracy": None if regression else correct / num_objects_total * 100.0,
-    }
+    }#"accuracy": None if regression else correct / num_objects_total * 100.0,
 
 
 def predict(loader, model, verbose=False, regression=False):
@@ -281,3 +279,28 @@ def schedule(epoch, lr_init, epochs, swa, swa_start=None, swa_lr=None):
     else:
         factor = lr_ratio
     return lr_init * factor
+
+def compute_outer_fence_mean_standard_deviation(residuals):
+        """ 
+        Computes the mean and standard deviation using the outer fence method.
+        The outerfence is [25'th percentile - 1.5*IQR, 75'th percentile + 1.5*IQR]
+        where IQR is the interquartile range.
+
+        Parameters
+        ----------
+        residuals : The travel time residuals in seconds.
+
+        Results
+        -------
+        mean : The mean (seconds) of the residuals in the outer fence.
+        std : The standard deviation (seconds) of the residuals in the outer fence.  
+        """
+        q1, q3 = np.percentile(residuals, [25,75])
+        iqr = q3 - q1
+        of1 = q1 - 1.5*iqr
+        of3 = q3 + 1.5*iqr
+        trimmed_residuals = residuals[(residuals > of1) & (residuals < of3)]
+        #print(len(trimmed_residuals), len(residuals), of1, of3)
+        mean = np.mean(trimmed_residuals)
+        std = np.std(trimmed_residuals)
+        return mean, std

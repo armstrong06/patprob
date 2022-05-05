@@ -200,6 +200,19 @@ if use_cuda:
 else:
     args.device = torch.device("cpu")
 
+param_columns = ["BatchSize", "SGD_lr", "WD", "Mom" "SWA_lr", "K"]
+param_values = [args.batch_size,
+                args.sgd_lr, 
+                args.wd, 
+                args.momentum, 
+                args.swa_lr, 
+                args.max_num_models
+]
+table = tabulate.tabulate([param_values], param_columns, tablefmt="simple", floatfmt="8.4f")
+table = table.split("\n")
+table = "\n".join([table[1]] + table)
+print(table)
+
 print("Preparing directory %s" % args.dir)
 os.makedirs(args.dir, exist_ok=True)
 with open(os.path.join(args.dir, "command.sh"), "w") as f:
@@ -227,7 +240,6 @@ loaders = seismic_data.loaders(
     args.dt, 
     args.n_duplicates_train
 )
-
 
 print("Preparing model")
 print(*model_cfg.args)
@@ -299,10 +311,10 @@ if args.swa and args.swa_resume is not None:
     swag_model.to(args.device)
     swag_model.load_state_dict(checkpoint["state_dict"])
 
-columns = ["ep", "lr", "tr_loss", "tr_acc", "te_loss", "te_acc", "time", "mem_usage"]
+columns = ["ep", "lr", "tr_loss", "te_loss", "time", "mem_usage"]
 if args.swa:
-    columns = columns[:-2] + ["swa_te_loss", "swa_te_acc"] + columns[-2:]
-    swag_res = {"loss": None, "accuracy": None}
+    columns = columns[:-2] + ["swa_te_loss"] + columns[-2:]
+    swag_res = {"loss": None}
 
 utils.save_checkpoint(
     args.dir,
@@ -337,7 +349,7 @@ for epoch in range(start_epoch, args.epochs):
     ):
         test_res = utils.eval(loaders["test"], model, criterion, cuda=use_cuda, regression=True)
     else:
-        test_res = {"loss": None, "accuracy": None}
+        test_res = {"loss": None}
 
     if (
         args.swa
@@ -367,7 +379,7 @@ for epoch in range(start_epoch, args.epochs):
             utils.bn_update(loaders["train"], swag_model)
             swag_res = utils.eval(loaders["test"], swag_model, criterion, regression=True)
         else:
-            swag_res = {"loss": None, "accuracy": None}
+            swag_res = {"loss": None}
 
     if (epoch + 1) % args.save_freq == 0:
         utils.save_checkpoint(
@@ -390,14 +402,12 @@ for epoch in range(start_epoch, args.epochs):
         epoch + 1,
         lr,
         train_res["loss"],
-        train_res["accuracy"],
         test_res["loss"],
-        test_res["accuracy"],
         time_ep,
         memory_usage,
     ]
     if args.swa:
-        values = values[:-2] + [swag_res["loss"], swag_res["accuracy"]] + values[-2:]
+        values = values[:-2] + [swag_res["loss"]] + values[-2:]
     table = tabulate.tabulate([values], columns, tablefmt="simple", floatfmt="8.4f")
     if epoch % 40 == 0:
         table = table.split("\n")
@@ -424,3 +434,9 @@ if args.swa:
         predictions=sgd_ens_preds,
         targets=sgd_targets,
     )
+
+residuals = sgd_targets - sgd_ens_preds
+of_mean, of_std = utils.compute_outer_fence_mean_standard_deviation(residuals)
+print("Stats for sgd ensemble residuals")
+print("Mean    STD    OF_Mean    OF_STD")
+print(np.mean(residuals), np.std(residuals), of_mean, of_std)

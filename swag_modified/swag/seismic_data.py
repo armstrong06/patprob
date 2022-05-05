@@ -81,8 +81,8 @@ def randomize_start_times_and_normalize(X_in, time_series_len = 400,
     return X_out, random_lag*dt
 
 def loaders(
-    train_file,
-    validation_file,
+    train_filename,
+    validation_filename,
     path,
     batch_size,
     num_workers,
@@ -94,7 +94,7 @@ def loaders(
 ):
 
     np.random.seed(2482045)
-    train_file = h5py.File(f'{path}/{train_file}', 'r')
+    train_file = h5py.File(f'{path}/{train_filename}', 'r')
     print('Train shape:', train_file['X'].shape)
     X_waves_train = train_file['X'][:]#[0:80000]
     # Y_train = train_file['Y'][:]#[0:80000]
@@ -107,7 +107,7 @@ def loaders(
     train_dataset = NumpyDataset(X_train, Y_train)
 
 
-    validation_file = h5py.File('data/uuss_validation.h5', 'r')
+    validation_file = h5py.File(f'{path}/{validation_filename}', 'r')
     print('Validation shape:', validation_file['X'].shape)
     X_waves_validate = validation_file['X'][:]#[0:3200]
     # Y_validate = validation_file['Y'][:]#[0:3200]

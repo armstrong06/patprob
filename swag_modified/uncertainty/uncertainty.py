@@ -225,21 +225,21 @@ for i in range(args.N):
             output = model(input)
 
         with torch.no_grad():
-            predictions[k : k + input.size()[0], i] += output.cpu().numpy()
+            predictions[k : k + input.size()[0], i:i+1] = output.cpu().numpy()
             
         targets[k : (k + target.size(0))] = target.numpy()
         k += input.size()[0]
 
     # Is the output of the swag model a probability or pick shift??
-    residuals = targets - predictions[:, i]
+    residuals = targets[:, 0] - predictions[:, i]
     print("Residual Mean:", np.mean(residuals))
     print("Residual STD:", np.std(residuals))
     print("Residual RMS:", np.sqrt(np.sum(residuals**2))/len(residuals))
 
-# mean of sampled predictions
-predictions /= args.N
+# mean of sampled predictions - don't do this since storing all of them
+# predictions /= args.N
 
-final_residuals = targets - predictions
+#final_residuals = targets - predictions
 pred_mean = np.mean(predictions, axis=1)
 pred_std = np.std(predictions, axis=1)
 
