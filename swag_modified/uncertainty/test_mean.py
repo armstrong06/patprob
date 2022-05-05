@@ -8,3 +8,6 @@ matrix = np.vstack([matrix, matrix, matrix])
 np.mean(matrix, axis=1)
 np.std(matrix, axis=1)
 # %%
+
+np.mean(matrix, axis=1).shape
+# %%

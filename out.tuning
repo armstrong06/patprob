@@ -1,9 +1,10 @@
 nohup: ignoring input
+./hyperparameter_tuning.sh: line 3: [BatchSize,: command not found
 ./tuning/64_0.05_3e-4_0.01
---  -----------  --------  --------  -----------  ---
-      BatchSize    SGD_lr        WD    MomSWA_lr    K
---  -----------  --------  --------  -----------  ---
-64       0.0500    0.0003    0.9000       0.0100   20
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+         64    0.0500    0.0003    0.9000    0.0100   20
 Preparing directory ./tuning/64_0.05_3e-4_0.01
 Using model PPicker
 Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
@@ -21,18 +22,42 @@ Preparing model
 Loading model: existing_models/SCSN_model_004.pt
 Starting loss: 687.2010004582407
 SWAG training
-----  --------  ---------  ---------  -------------  --------  -----------
-  ep        lr    tr_loss    te_loss  swa_te_loss        time    mem_usage
-----  --------  ---------  ---------  -------------  --------  -----------
-   1    0.0500     0.0163     0.0089                  73.5796       0.1093
-   2    0.0500     0.0107                             73.2410       0.1093
-   3    0.0500     0.0107                             72.8210       0.1093
-   4    0.0500     0.0107                             78.2564       0.1093
-   5    0.0500     0.0108     0.0088                  73.9548       0.1093
-   6    0.0500     0.0107                             73.0146       0.1093
-   7    0.0500     0.0108                             72.1020       0.1093
-   8    0.0500     0.0107                             72.2175       0.1093
-./hyperparameter_tuning.sh: line 24: 16393 Killed                  python -u swag_modified/train/run_swag.py --data_path="./data" --train_dataset="uuss_train.h5" --validation_dataset="uuss_validation.h5" --load_model="existing_models/SCSN_model_004.pt" --n_duplicates_train=3 --batch_size=$BS --epochs=30 --model="PPicker" --save_freq=5 --lr_init=$SGD_LR --wd=$WD --swa --swa_start=16 --swa_lr=$SWA_LR --cov_mat --dir="./tuning/${BS}_${SGD_LR}_${WD}_${SWA_LR}"
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.0500     0.0150         0.0086                  72.3783       0.1093
+   2    0.0500     0.0104                                 70.7112       0.1093
+   3    0.0500     0.0106                                 71.0855       0.1093
+   4    0.0500     0.0106                                 71.6893       0.1093
+   5    0.0500     0.0106         0.0093                  71.8269       0.1093
+   6    0.0500     0.0106                                 71.4019       0.1093
+   7    0.0400     0.0103                                 71.1259       0.1093
+   8    0.0300     0.0097                                 70.4543       0.1093
+   9    0.0200     0.0093                                 70.8587       0.1093
+  10    0.0100     0.0086         0.0078                  71.9178       0.1093
+updating sgd_ens
+  11    0.0100     0.0085                                 71.6026       0.1229
+updating sgd_ens
+  12    0.0100     0.0085                                 72.2097       0.1366
+updating sgd_ens
+  13    0.0100     0.0085                                 71.8050       0.1507
+updating sgd_ens
+  14    0.0100     0.0085                                 72.2055       0.1640
+updating sgd_ens
+  15    0.0100     0.0084         0.0089         0.0069   94.9254       0.1912
+updating sgd_ens
+  16    0.0100     0.0084                                 71.1800       0.2048
+updating sgd_ens
+  17    0.0100     0.0084                                 70.9062       0.2185
+updating sgd_ens
+  18    0.0100     0.0084                                 71.3869       0.2325
+updating sgd_ens
+  19    0.0100     0.0083                                 70.8118       0.2462
+updating sgd_ens
+  20    0.0100     0.0083         0.0079         0.0070   93.9874       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+-0.002750899 0.082869194 0.0020843882 0.035566747
 ./tuning/64_0.05_3e-4_0.05
 -----------  --------  --------  --------  --------  ---
   BatchSize    SGD_lr        WD       Mom    SWA_lr    K
@@ -55,4 +80,851 @@ Preparing model
 Loading model: existing_models/SCSN_model_004.pt
 Starting loss: 687.2010004582407
 SWAG training
-./hyperparameter_tuning.sh: line 24: 17592 Killed                  python -u swag_modified/train/run_swag.py --data_path="./data" --train_dataset="uuss_train.h5" --validation_dataset="uuss_validation.h5" --load_model="existing_models/SCSN_model_004.pt" --n_duplicates_train=3 --batch_size=$BS --epochs=30 --model="PPicker" --save_freq=5 --lr_init=$SGD_LR --wd=$WD --swa --swa_start=16 --swa_lr=$SWA_LR --cov_mat --dir="./tuning/${BS}_${SGD_LR}_${WD}_${SWA_LR}"
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.0500     0.0160         0.0093                  72.1450       0.1093
+   2    0.0500     0.0105                                 70.1279       0.1093
+   3    0.0500     0.0107                                 70.9163       0.1093
+   4    0.0500     0.0106                                 70.6645       0.1093
+   5    0.0500     0.0107         0.0085                  72.1320       0.1093
+   6    0.0500     0.0106                                 70.9227       0.1093
+   7    0.0500     0.0108                                 70.6967       0.1093
+   8    0.0500     0.0107                                 71.1244       0.1093
+   9    0.0500     0.0107                                 70.6888       0.1093
+  10    0.0500     0.0107         0.0089                  72.0570       0.1093
+updating sgd_ens
+  11    0.0500     0.0107                                 71.8436       0.1229
+updating sgd_ens
+  12    0.0500     0.0108                                 71.6099       0.1366
+updating sgd_ens
+  13    0.0500     0.0107                                 71.6946       0.1507
+updating sgd_ens
+  14    0.0500     0.0108                                 71.7890       0.1640
+updating sgd_ens
+  15    0.0500     0.0107         0.0107         0.0081   94.9487       0.1912
+updating sgd_ens
+  16    0.0500     0.0108                                 70.8424       0.2048
+updating sgd_ens
+  17    0.0500     0.0108                                 70.9395       0.2185
+updating sgd_ens
+  18    0.0500     0.0109                                 71.0432       0.2325
+updating sgd_ens
+  19    0.0500     0.0108                                 70.9065       0.2462
+updating sgd_ens
+  20    0.0500     0.0109         0.0096         0.0088   94.7028       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.012280653 0.089728855 0.017651299 0.047345433
+./tuning/64_0.05_5e-4_0.01
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+         64    0.0500    0.0005    0.9000    0.0100   20
+Preparing directory ./tuning/64_0.05_5e-4_0.01
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.0500     0.0149         0.0097                  72.1103       0.1093
+   2    0.0500     0.0111                                 70.6040       0.1093
+   3    0.0500     0.0112                                 70.6751       0.1093
+   4    0.0500     0.0113                                 70.7892       0.1093
+   5    0.0500     0.0115         0.0110                  71.8977       0.1093
+   6    0.0500     0.0116                                 71.2636       0.1093
+   7    0.0400     0.0112                                 70.9641       0.1093
+   8    0.0300     0.0106                                 70.8421       0.1093
+   9    0.0200     0.0100                                 70.7801       0.1093
+  10    0.0100     0.0092         0.0082                  72.1810       0.1093
+updating sgd_ens
+  11    0.0100     0.0093                                 71.4613       0.1229
+updating sgd_ens
+  12    0.0100     0.0093                                 71.9072       0.1366
+updating sgd_ens
+  13    0.0100     0.0093                                 71.5216       0.1507
+updating sgd_ens
+  14    0.0100     0.0092                                 71.7777       0.1640
+updating sgd_ens
+  15    0.0100     0.0092         0.0093         0.0073   94.9802       0.1912
+updating sgd_ens
+  16    0.0100     0.0092                                 70.9322       0.2048
+updating sgd_ens
+  17    0.0100     0.0092                                 71.0523       0.2185
+updating sgd_ens
+  18    0.0100     0.0092                                 70.8961       0.2325
+updating sgd_ens
+  19    0.0100     0.0091                                 70.5473       0.2462
+updating sgd_ens
+  20    0.0100     0.0092         0.0083         0.0072   94.3113       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.0041524493 0.08525355 0.009736713 0.038825914
+./tuning/64_0.05_5e-4_0.05
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+         64    0.0500    0.0005    0.9000    0.0500   20
+Preparing directory ./tuning/64_0.05_5e-4_0.05
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.0500     0.0134         0.0095                  71.9673       0.1093
+   2    0.0500     0.0111                                 70.7674       0.1093
+   3    0.0500     0.0113                                 70.6898       0.1093
+   4    0.0500     0.0114                                 70.5064       0.1093
+   5    0.0500     0.0115         0.0096                  71.6371       0.1093
+   6    0.0500     0.0114                                 71.0716       0.1093
+   7    0.0500     0.0115                                 70.4642       0.1093
+   8    0.0500     0.0115                                 70.8394       0.1093
+   9    0.0500     0.0116                                 70.3265       0.1093
+  10    0.0500     0.0117         0.0096                  71.6869       0.1093
+updating sgd_ens
+  11    0.0500     0.0117                                 71.5086       0.1229
+updating sgd_ens
+  12    0.0500     0.0119                                 71.5270       0.1366
+updating sgd_ens
+  13    0.0500     0.0118                                 71.5461       0.1507
+updating sgd_ens
+  14    0.0500     0.0119                                 71.3524       0.1640
+updating sgd_ens
+  15    0.0500     0.0117         0.0116         0.0094   94.4394       0.1912
+updating sgd_ens
+  16    0.0500     0.0118                                 70.2331       0.2048
+updating sgd_ens
+  17    0.0500     0.0119                                 70.4537       0.2185
+updating sgd_ens
+  18    0.0500     0.0118                                 70.7528       0.2325
+updating sgd_ens
+  19    0.0500     0.0118                                 70.9375       0.2462
+updating sgd_ens
+  20    0.0500     0.0118         0.0118         0.0109   93.4600       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.003133152 0.09356539 0.009306834 0.050364632
+./tuning/64_0.1_3e-4_0.01
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+         64    0.1000    0.0003    0.9000    0.0100   20
+Preparing directory ./tuning/64_0.1_3e-4_0.01
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.1000     0.0404         0.0123                  72.0345       0.1093
+   2    0.1000     0.0124                                 71.0525       0.1093
+   3    0.1000     0.0125                                 70.3086       0.1093
+   4    0.1000     0.0125                                 70.4924       0.1093
+   5    0.1000     0.0125         0.0099                  71.5334       0.1093
+   6    0.1000     0.0126                                 70.5830       0.1093
+   7    0.0775     0.0120                                 70.5196       0.1093
+   8    0.0550     0.0112                                 70.7775       0.1093
+   9    0.0325     0.0103                                 70.4231       0.1093
+  10    0.0100     0.0090         0.0076                  71.4721       0.1093
+updating sgd_ens
+  11    0.0100     0.0089                                 71.6017       0.1229
+updating sgd_ens
+  12    0.0100     0.0090                                 71.1369       0.1366
+updating sgd_ens
+  13    0.0100     0.0089                                 71.9412       0.1507
+updating sgd_ens
+  14    0.0100     0.0089                                 71.1216       0.1640
+updating sgd_ens
+  15    0.0100     0.0088         0.0091         0.0070   94.1595       0.1912
+updating sgd_ens
+  16    0.0100     0.0088                                 70.6811       0.2048
+updating sgd_ens
+  17    0.0100     0.0088                                 70.5371       0.2185
+updating sgd_ens
+  18    0.0100     0.0088                                 70.8876       0.2325
+updating sgd_ens
+  19    0.0100     0.0087                                 70.6956       0.2462
+updating sgd_ens
+  20    0.0100     0.0088         0.0079         0.0070   93.7780       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.0012035167 0.08433457 0.0057353126 0.037940897
+./tuning/64_0.1_3e-4_0.05
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+         64    0.1000    0.0003    0.9000    0.0500   20
+Preparing directory ./tuning/64_0.1_3e-4_0.05
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.1000     0.0384         0.0127                  73.0943       0.1093
+   2    0.1000     0.0124                                 71.3295       0.1093
+   3    0.1000     0.0125                                 71.8191       0.1093
+   4    0.1000     0.0125                                 71.6148       0.1093
+   5    0.1000     0.0125         0.0099                  72.4032       0.1093
+   6    0.1000     0.0127                                 71.7856       0.1093
+   7    0.0875     0.0124                                 71.4670       0.1093
+   8    0.0750     0.0119                                 70.9297       0.1093
+   9    0.0625     0.0115                                 72.0770       0.1093
+  10    0.0500     0.0110         0.0087                  72.4091       0.1093
+updating sgd_ens
+  11    0.0500     0.0110                                 72.8116       0.1229
+updating sgd_ens
+  12    0.0500     0.0110                                 72.8699       0.1366
+updating sgd_ens
+  13    0.0500     0.0110                                 72.6459       0.1507
+updating sgd_ens
+  14    0.0500     0.0110                                 72.2163       0.1640
+updating sgd_ens
+  15    0.0500     0.0109         0.0109         0.0082   95.3913       0.1912
+updating sgd_ens
+  16    0.0500     0.0110                                 71.5879       0.2048
+updating sgd_ens
+  17    0.0500     0.0110                                 71.3447       0.2185
+updating sgd_ens
+  18    0.0500     0.0110                                 71.8552       0.2325
+updating sgd_ens
+  19    0.0500     0.0109                                 71.9977       0.2462
+updating sgd_ens
+  20    0.0500     0.0110         0.0098         0.0092   94.5750       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.013454018 0.090051755 0.019053746 0.04853888
+./tuning/64_0.1_5e-4_0.01
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+         64    0.1000    0.0005    0.9000    0.0100   20
+Preparing directory ./tuning/64_0.1_5e-4_0.01
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.1000     0.0321         0.0117                  71.8567       0.1093
+   2    0.1000     0.0133                                 70.2626       0.1093
+   3    0.1000     0.0135                                 70.4700       0.1093
+   4    0.1000     0.0137                                 70.3934       0.1093
+   5    0.1000     0.0140         0.0134                  71.1843       0.1093
+   6    0.1000     0.0138                                 70.9096       0.1093
+   7    0.0775     0.0132                                 70.6272       0.1093
+   8    0.0550     0.0121                                 70.6107       0.1093
+   9    0.0325     0.0110                                 70.4213       0.1093
+  10    0.0100     0.0095         0.0080                  71.5290       0.1093
+updating sgd_ens
+  11    0.0100     0.0095                                 71.0173       0.1229
+updating sgd_ens
+  12    0.0100     0.0095                                 71.1076       0.1366
+updating sgd_ens
+  13    0.0100     0.0095                                 71.6855       0.1507
+updating sgd_ens
+  14    0.0100     0.0094                                 71.6935       0.1640
+updating sgd_ens
+  15    0.0100     0.0094         0.0088         0.0073   94.9342       0.1912
+updating sgd_ens
+  16    0.0100     0.0094                                 70.6303       0.2048
+updating sgd_ens
+  17    0.0100     0.0094                                 70.7838       0.2185
+updating sgd_ens
+  18    0.0100     0.0094                                 71.2114       0.2325
+updating sgd_ens
+  19    0.0100     0.0093                                 70.6193       0.2462
+updating sgd_ens
+  20    0.0100     0.0094         0.0085         0.0074   93.5178       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.0031721285 0.08654111 0.008846845 0.040191002
+./tuning/64_0.1_5e-4_0.05
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+         64    0.1000    0.0005    0.9000    0.0500   20
+Preparing directory ./tuning/64_0.1_5e-4_0.05
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.1000     0.0294         0.0175                  71.6972       0.1093
+   2    0.1000     0.0133                                 70.3294       0.1093
+   3    0.1000     0.0134                                 71.0343       0.1093
+   4    0.1000     0.0135                                 70.4493       0.1093
+   5    0.1000     0.0134         0.0111                  71.9203       0.1093
+   6    0.1000     0.0136                                 70.4437       0.1093
+   7    0.0875     0.0133                                 70.5253       0.1093
+   8    0.0750     0.0128                                 70.3718       0.1093
+   9    0.0625     0.0124                                 70.5382       0.1093
+  10    0.0500     0.0119         0.0098                  71.2328       0.1093
+updating sgd_ens
+  11    0.0500     0.0119                                 70.8320       0.1229
+updating sgd_ens
+  12    0.0500     0.0119                                 70.5571       0.1366
+updating sgd_ens
+  13    0.0500     0.0119                                 71.2212       0.1507
+updating sgd_ens
+  14    0.0500     0.0120                                 71.3917       0.1640
+updating sgd_ens
+  15    0.0500     0.0120         0.0120         0.0091   93.5893       0.1912
+updating sgd_ens
+  16    0.0500     0.0119                                 70.5750       0.2048
+updating sgd_ens
+  17    0.0500     0.0119                                 70.2966       0.2185
+updating sgd_ens
+  18    0.0500     0.0119                                 70.5707       0.2325
+updating sgd_ens
+  19    0.0500     0.0119                                 70.3750       0.2462
+updating sgd_ens
+  20    0.0500     0.0119         0.0100         0.0096   93.6759       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.0102978 0.09445517 0.016181469 0.05151154
+./tuning/128_0.05_3e-4_0.01
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+        128    0.0500    0.0003    0.9000    0.0100   20
+Preparing directory ./tuning/128_0.05_3e-4_0.01
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.0500     0.0149         0.0089                  45.7350       0.1093
+   2    0.0500     0.0085                                 44.5639       0.1093
+   3    0.0500     0.0086                                 44.5480       0.1093
+   4    0.0500     0.0088                                 44.3595       0.1093
+   5    0.0500     0.0087         0.0110                  45.5097       0.1093
+   6    0.0500     0.0088                                 44.8730       0.1093
+   7    0.0400     0.0086                                 44.4826       0.1093
+   8    0.0300     0.0082                                 45.1165       0.1093
+   9    0.0200     0.0078                                 44.9333       0.1093
+  10    0.0100     0.0071         0.0079                  45.5752       0.1093
+updating sgd_ens
+  11    0.0100     0.0070                                 45.4573       0.1229
+updating sgd_ens
+  12    0.0100     0.0069                                 45.6421       0.1366
+updating sgd_ens
+  13    0.0100     0.0067                                 45.3678       0.1507
+updating sgd_ens
+  14    0.0100     0.0066                                 45.1510       0.1640
+updating sgd_ens
+  15    0.0100     0.0064         0.0076         0.0067   59.6291       0.1912
+updating sgd_ens
+  16    0.0100     0.0062                                 45.0726       0.2048
+updating sgd_ens
+  17    0.0100     0.0060                                 44.9112       0.2185
+updating sgd_ens
+  18    0.0100     0.0059                                 45.0316       0.2321
+updating sgd_ens
+  19    0.0100     0.0057                                 45.2567       0.2462
+updating sgd_ens
+  20    0.0100     0.0056         0.0079         0.0068   59.8012       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.0011952303 0.082028925 0.0062496597 0.032117993
+./tuning/128_0.05_3e-4_0.05
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+        128    0.0500    0.0003    0.9000    0.0500   20
+Preparing directory ./tuning/128_0.05_3e-4_0.05
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.0500     0.0141         0.0083                  46.2609       0.1093
+   2    0.0500     0.0083                                 44.8102       0.1093
+   3    0.0500     0.0086                                 44.4804       0.1093
+   4    0.0500     0.0088                                 44.8157       0.1093
+   5    0.0500     0.0087         0.0109                  45.3480       0.1093
+   6    0.0500     0.0088                                 44.4936       0.1093
+   7    0.0500     0.0089                                 44.6406       0.1093
+   8    0.0500     0.0087                                 44.7385       0.1093
+   9    0.0500     0.0088                                 44.4744       0.1093
+  10    0.0500     0.0088         0.0104                  45.4281       0.1093
+updating sgd_ens
+  11    0.0500     0.0088                                 45.3768       0.1229
+updating sgd_ens
+  12    0.0500     0.0088                                 45.3245       0.1366
+updating sgd_ens
+  13    0.0500     0.0088                                 45.3493       0.1507
+updating sgd_ens
+  14    0.0500     0.0088                                 45.2054       0.1640
+updating sgd_ens
+  15    0.0500     0.0088         0.0105         0.0073   59.5998       0.1912
+updating sgd_ens
+  16    0.0500     0.0088                                 45.3465       0.2048
+updating sgd_ens
+  17    0.0500     0.0088                                 45.1997       0.2185
+updating sgd_ens
+  18    0.0500     0.0088                                 45.3708       0.2321
+updating sgd_ens
+  19    0.0500     0.0088                                 45.3283       0.2462
+updating sgd_ens
+  20    0.0500     0.0088         0.0083         0.0073   60.2962       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+-0.0010850794 0.08616537 0.0044005215 0.043002874
+./tuning/128_0.05_5e-4_0.01
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+        128    0.0500    0.0005    0.9000    0.0100   20
+Preparing directory ./tuning/128_0.05_5e-4_0.01
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.0500     0.0125         0.0083                  46.2944       0.1093
+   2    0.0500     0.0089                                 44.8234       0.1093
+   3    0.0500     0.0093                                 44.8732       0.1093
+   4    0.0500     0.0093                                 44.5505       0.1093
+   5    0.0500     0.0093         0.0141                  45.4504       0.1093
+   6    0.0500     0.0094                                 44.5323       0.1093
+   7    0.0400     0.0091                                 44.4962       0.1093
+   8    0.0300     0.0087                                 44.6391       0.1093
+   9    0.0200     0.0083                                 44.9738       0.1093
+  10    0.0100     0.0077         0.0084                  45.4298       0.1093
+updating sgd_ens
+  11    0.0100     0.0077                                 45.3867       0.1229
+updating sgd_ens
+  12    0.0100     0.0076                                 45.4101       0.1366
+updating sgd_ens
+  13    0.0100     0.0076                                 45.4764       0.1507
+updating sgd_ens
+  14    0.0100     0.0075                                 44.8645       0.1640
+updating sgd_ens
+  15    0.0100     0.0075         0.0074         0.0068   59.7296       0.1912
+updating sgd_ens
+  16    0.0100     0.0074                                 44.9061       0.2048
+updating sgd_ens
+  17    0.0100     0.0074                                 45.0045       0.2185
+updating sgd_ens
+  18    0.0100     0.0073                                 45.0691       0.2321
+updating sgd_ens
+  19    0.0100     0.0073                                 45.1676       0.2462
+updating sgd_ens
+  20    0.0100     0.0072         0.0076         0.0067   59.8870       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.008094006 0.08226012 0.012689108 0.03456247
+./tuning/128_0.05_5e-4_0.05
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+        128    0.0500    0.0005    0.9000    0.0500   20
+Preparing directory ./tuning/128_0.05_5e-4_0.05
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.0500     0.0136         0.0086                  45.9983       0.1093
+   2    0.0500     0.0090                                 44.8821       0.1093
+   3    0.0500     0.0093                                 45.0929       0.1093
+   4    0.0500     0.0093                                 44.7667       0.1093
+   5    0.0500     0.0093         0.0103                  46.0155       0.1093
+   6    0.0500     0.0094                                 44.8803       0.1093
+   7    0.0500     0.0095                                 44.9726       0.1093
+   8    0.0500     0.0093                                 44.9796       0.1093
+   9    0.0500     0.0094                                 44.8627       0.1093
+  10    0.0500     0.0094         0.0086                  46.0187       0.1093
+updating sgd_ens
+  11    0.0500     0.0094                                 45.4865       0.1229
+updating sgd_ens
+  12    0.0500     0.0094                                 45.3273       0.1366
+updating sgd_ens
+  13    0.0500     0.0095                                 45.3868       0.1507
+updating sgd_ens
+  14    0.0500     0.0095                                 45.4953       0.1640
+updating sgd_ens
+  15    0.0500     0.0095         0.0091         0.0081   59.7941       0.1912
+updating sgd_ens
+  16    0.0500     0.0095                                 45.4799       0.2048
+updating sgd_ens
+  17    0.0500     0.0096                                 45.5235       0.2185
+updating sgd_ens
+  18    0.0500     0.0095                                 45.4129       0.2321
+updating sgd_ens
+  19    0.0500     0.0095                                 45.4472       0.2462
+updating sgd_ens
+  20    0.0500     0.0096         0.0109         0.0091   59.6416       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.008994104 0.09011078 0.014545338 0.049221728
+./tuning/128_0.1_3e-4_0.01
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+        128    0.1000    0.0003    0.9000    0.0100   20
+Preparing directory ./tuning/128_0.1_3e-4_0.01
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.1000     0.0257         0.0089                  46.0615       0.1093
+   2    0.1000     0.0099                                 44.6820       0.1093
+   3    0.1000     0.0100                                 44.6595       0.1093
+   4    0.1000     0.0100                                 44.6379       0.1093
+   5    0.1000     0.0100         0.0090                  45.3033       0.1093
+   6    0.1000     0.0102                                 44.6567       0.1093
+   7    0.0775     0.0096                                 44.8814       0.1093
+   8    0.0550     0.0091                                 44.4916       0.1093
+   9    0.0325     0.0085                                 44.9094       0.1093
+  10    0.0100     0.0075         0.0080                  45.4030       0.1093
+updating sgd_ens
+  11    0.0100     0.0074                                 45.4944       0.1229
+updating sgd_ens
+  12    0.0100     0.0074                                 45.2103       0.1366
+updating sgd_ens
+  13    0.0100     0.0073                                 45.2463       0.1507
+updating sgd_ens
+  14    0.0100     0.0073                                 45.2411       0.1640
+updating sgd_ens
+  15    0.0100     0.0072         0.0076         0.0068   59.5740       0.1912
+updating sgd_ens
+  16    0.0100     0.0071                                 45.5016       0.2048
+updating sgd_ens
+  17    0.0100     0.0070                                 45.2608       0.2185
+updating sgd_ens
+  18    0.0100     0.0069                                 44.8093       0.2321
+updating sgd_ens
+  19    0.0100     0.0068                                 45.3774       0.2462
+updating sgd_ens
+  20    0.0100     0.0067         0.0077         0.0067   59.4326       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.0042530806 0.08205792 0.008084711 0.03322862
+./tuning/128_0.1_3e-4_0.05
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+        128    0.1000    0.0003    0.9000    0.0500   20
+Preparing directory ./tuning/128_0.1_3e-4_0.05
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.1000     0.0266         0.0089                  45.8001       0.1093
+   2    0.1000     0.0098                                 44.4745       0.1093
+   3    0.1000     0.0101                                 44.5490       0.1093
+   4    0.1000     0.0100                                 45.3883       0.1093
+   5    0.1000     0.0100         0.0097                  45.7505       0.1093
+   6    0.1000     0.0101                                 44.5098       0.1093
+   7    0.0875     0.0100                                 44.8710       0.1093
+   8    0.0750     0.0095                                 44.2175       0.1093
+   9    0.0625     0.0093                                 44.8719       0.1093
+  10    0.0500     0.0089         0.0087                  44.8600       0.1093
+updating sgd_ens
+  11    0.0500     0.0090                                 44.7982       0.1229
+updating sgd_ens
+  12    0.0500     0.0090                                 44.9225       0.1366
+updating sgd_ens
+  13    0.0500     0.0090                                 45.1371       0.1507
+updating sgd_ens
+  14    0.0500     0.0090                                 45.5999       0.1640
+updating sgd_ens
+  15    0.0500     0.0090         0.0093         0.0079   59.4518       0.1912
+updating sgd_ens
+  16    0.0500     0.0090                                 44.8554       0.2048
+updating sgd_ens
+  17    0.0500     0.0090                                 44.4279       0.2185
+updating sgd_ens
+  18    0.0500     0.0090                                 45.1056       0.2321
+updating sgd_ens
+  19    0.0500     0.0089                                 45.2851       0.2462
+updating sgd_ens
+  20    0.0500     0.0090         0.0082         0.0075   59.6952       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.007585948 0.08606446 0.012754003 0.04112346
+./tuning/128_0.1_5e-4_0.01
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+        128    0.1000    0.0005    0.9000    0.0100   20
+Preparing directory ./tuning/128_0.1_5e-4_0.01
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.1000     0.0228         0.0123                  45.9629       0.1093
+   2    0.1000     0.0105                                 44.4437       0.1093
+   3    0.1000     0.0107                                 44.9883       0.1093
+   4    0.1000     0.0107                                 44.9318       0.1093
+   5    0.1000     0.0108         0.0099                  45.4418       0.1093
+   6    0.1000     0.0109                                 44.4016       0.1093
+   7    0.0775     0.0104                                 44.3953       0.1093
+   8    0.0550     0.0098                                 44.5124       0.1093
+   9    0.0325     0.0092                                 44.6044       0.1093
+  10    0.0100     0.0081         0.0080                  45.4551       0.1093
+updating sgd_ens
+  11    0.0100     0.0081                                 45.3232       0.1229
+updating sgd_ens
+  12    0.0100     0.0081                                 44.9655       0.1366
+updating sgd_ens
+  13    0.0100     0.0080                                 45.1607       0.1507
+updating sgd_ens
+  14    0.0100     0.0080                                 45.3787       0.1640
+updating sgd_ens
+  15    0.0100     0.0079         0.0086         0.0070   59.4496       0.1912
+updating sgd_ens
+  16    0.0100     0.0079                                 45.1400       0.2048
+updating sgd_ens
+  17    0.0100     0.0078                                 45.4130       0.2185
+updating sgd_ens
+  18    0.0100     0.0078                                 44.9609       0.2321
+updating sgd_ens
+  19    0.0100     0.0078                                 45.2979       0.2462
+updating sgd_ens
+  20    0.0100     0.0078         0.0079         0.0069   59.5227       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.0060665915 0.083538786 0.011537785 0.035583492
+./tuning/128_0.1_5e-4_0.05
+-----------  --------  --------  --------  --------  ---
+  BatchSize    SGD_lr        WD       Mom    SWA_lr    K
+-----------  --------  --------  --------  --------  ---
+        128    0.1000    0.0005    0.9000    0.0500   20
+Preparing directory ./tuning/128_0.1_5e-4_0.05
+Using model PPicker
+Loading datasets uuss_train.h5 and uuss_validation.h5 from ./data
+Train shape: (316461, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Validation shape: (34747, 600)
+Randomizing start times...
+Beginning sample to which random lags are added: 100
+Min/max lag: -50 50
+Creating validation dataset...
+Preparing model
+
+Loading model: existing_models/SCSN_model_004.pt
+Starting loss: 687.2010004582407
+SWAG training
+----  --------  ---------  -------------  -------------  --------  -----------
+  ep        lr    tr_loss    swa_te_loss  swa_te_loss        time    mem_usage
+----  --------  ---------  -------------  -------------  --------  -----------
+   1    0.1000     0.0231         0.0132                  46.1525       0.1093
+   2    0.1000     0.0109                                 45.1811       0.1093
+   3    0.1000     0.0110                                 44.5545       0.1093
+   4    0.1000     0.0110                                 44.7617       0.1093
+   5    0.1000     0.0111         0.0124                  45.5129       0.1093
+   6    0.1000     0.0112                                 44.6742       0.1093
+   7    0.0875     0.0108                                 44.8147       0.1093
+   8    0.0750     0.0104                                 44.4673       0.1093
+   9    0.0625     0.0103                                 44.8420       0.1093
+  10    0.0500     0.0098         0.0090                  45.4853       0.1093
+updating sgd_ens
+  11    0.0500     0.0097                                 45.5333       0.1229
+updating sgd_ens
+  12    0.0500     0.0097                                 45.6923       0.1366
+updating sgd_ens
+  13    0.0500     0.0097                                 45.4566       0.1507
+updating sgd_ens
+  14    0.0500     0.0098                                 45.5885       0.1640
+updating sgd_ens
+  15    0.0500     0.0097         0.0108         0.0080   59.6931       0.1912
+updating sgd_ens
+  16    0.0500     0.0097                                 44.9414       0.2048
+updating sgd_ens
+  17    0.0500     0.0098                                 45.1239       0.2185
+updating sgd_ens
+  18    0.0500     0.0097                                 45.1611       0.2321
+updating sgd_ens
+  19    0.0500     0.0097                                 44.8502       0.2462
+updating sgd_ens
+  20    0.0500     0.0097         0.0088         0.0086   59.8046       0.2598
+Stats for sgd ensemble residuals
+Mean    STD    OF_Mean    OF_STD
+0.008380027 0.08930918 0.012376567 0.045610942
