@@ -180,7 +180,7 @@ if args.method == "HomoNoise":
         module.__getattr__("%s_sq_mean" % name).copy_(mean ** 2 + std ** 2)
 
 
-predictions = np.zeros((len(loaders["test"].dataset), 1))
+predictions = np.zeros((len(loaders["test"].dataset), args.N))
 targets = np.zeros((len(loaders["test"].dataset), 1))
 print(targets.size)
 
@@ -225,25 +225,25 @@ for i in range(args.N):
             output = model(input)
 
         with torch.no_grad():
-            predictions[k : k + input.size()[0]] += output.cpu().numpy()
+            predictions[k : k + input.size()[0], i] += output.cpu().numpy()
             
         targets[k : (k + target.size(0))] = target.numpy()
         k += input.size()[0]
 
     # Is the output of the swag model a probability or pick shift??
-    residuals = targets - predictions
-    print("Residual Mean:", np.mean(residuals/(i+1)))
-    print("Residual STD:", np.std(residuals/(i+1)))
-    print("Residual RMS:", np.sqrt(np.sum(residuals**2/(i+1)))/len(residuals))
+    residuals = targets - predictions[:, i]
+    print("Residual Mean:", np.mean(residuals))
+    print("Residual STD:", np.std(residuals))
+    print("Residual RMS:", np.sqrt(np.sum(residuals**2))/len(residuals))
 
 # mean of sampled predictions
 predictions /= args.N
 
 final_residuals = targets - predictions
-# total_res_mean = np.mean(final_residuals)
-# toal_res_std = np.std(final_residuals)
-# print("Residual RMS:", np.sqrt(np.sum(residuals**2))/len(residuals))
+pred_mean = np.mean(predictions, axis=1)
+pred_std = np.std(predictions, axis=1)
 
 # Don't feel like this has the same meaning for regression
 # entropies = -np.sum(np.log(predictions + eps) * predictions, axis=1)
-np.savez(args.save_path, residuals=final_residuals, predictions=predictions, targets=targets)
+np.savez(args.save_path, predictions=predictions, targets=targets,
+         prediction_mean=pred_mean, prediction_std=pred_std)
