@@ -200,9 +200,9 @@ if use_cuda:
 else:
     args.device = torch.device("cpu")
 
-param_columns = ["BatchSize", "SGD_lr", "WD", "Mom" "SWA_lr", "K"]
+param_columns = ["BatchSize", "SGD_lr", "WD", "Mom", "SWA_lr", "K"]
 param_values = [args.batch_size,
-                args.sgd_lr, 
+                args.lr_init, 
                 args.wd, 
                 args.momentum, 
                 args.swa_lr, 
@@ -311,7 +311,7 @@ if args.swa and args.swa_resume is not None:
     swag_model.to(args.device)
     swag_model.load_state_dict(checkpoint["state_dict"])
 
-columns = ["ep", "lr", "tr_loss", "te_loss", "time", "mem_usage"]
+columns = ["ep", "lr", "tr_loss", "swa_te_loss", "time", "mem_usage"]
 if args.swa:
     columns = columns[:-2] + ["swa_te_loss"] + columns[-2:]
     swag_res = {"loss": None}
