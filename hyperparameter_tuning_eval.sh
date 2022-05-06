@@ -1,8 +1,8 @@
 #!/bin/bash
 
-["BatchSize", "SGD_lr", "WD", "Mom" "SWA_lr", "K"]
-batch_sizes=(64 128)
-sgd_lrs=(0.05 0.1)
+#["BatchSize", "SGD_lr", "WD", "Mom" "SWA_lr", "K"]
+batch_sizes=(128)
+sgd_lrs=(0.1)
 weight_decays=(3e-4 5e-4)
 swa_lrs=(0.01 0.05)
 

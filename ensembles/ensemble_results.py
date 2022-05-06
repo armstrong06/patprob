@@ -213,19 +213,57 @@ std_bins = np.histogram(combined_stds, bins=20)
 bin_mean_resid = []
 bin_mean_std = []
 bin_mean_diff = []
+bin_acc = []
 for i in range(20):
     bin_inds = np.where((combined_stds > bins[1][i]) & (combined_stds < bins[1][i+1]))
     bin_mean_std.append(np.mean(combined_stds[bin_inds]))
-    bin_mean_resid.append(np.mean(combined_means[bin_inds]))
-    bin_mean_diff.append(np.mean(np.mean(combined_stds[bin_inds]) - np.mean(combined_means[bin_inds])))
+    bin_mean_resid.append(np.mean(combined_residuals[bin_inds]))
+    std_minus_resid = combined_stds[bin_inds] - abs(combined_residuals[bin_inds])
+    bin_mean_diff.append(np.mean(std_minus_resid))
+    bin_acc.append((np.sum(std_minus_resid > 0)*1)/len(std_minus_resid))
 plt.plot(bin_mean_std, bin_mean_resid, marker="o")
-plt.xlabel("mean STD")
+plt.xlabel("mean STD of bin")
 plt.ylabel("Mean residual of bin")
 plt.axhline(0, linestyle="--", color="k")
 
 # %%
 plt.plot(bin_mean_std, bin_mean_diff, marker="o")
-plt.xlabel("mean STD")
-plt.ylabel("Mean STD - Mean residual of bin")
+plt.xlabel("mean STD of bin")
+plt.ylabel("Mean(STD - ABS(residual))")
 plt.axhline(0, linestyle="--", color="k")
+
+#%%
+plt.plot(bin_mean_std, bin_acc, marker="o")
+plt.xlabel("mean STD of bin")
+plt.ylabel("Accuracy of true pick being within 1 STD")
+plt.axhline(0, linestyle="--", color="k")
+# %%
+def unequal_variance_T_test(pop1, pop2):
+    pop1_mean = np.mean(pop1)
+    pop1_var = np.var(pop1)
+
+    pop2_mean = np.mean(pop2)
+    pop2_var = np.var(pop2)
+
+    n_pop1 = len(pop1)
+    n_pop2 = len(pop2)
+
+    T_val = (pop1_mean - pop2_mean)/np.sqrt((pop1_var/n_pop1)+(pop2_var/n_pop2))
+
+    v1 = (pop1_var**2/n_pop1)
+    v2 = (pop2_var**2/n_pop2)
+    print(v1)
+    print(v2)
+    deg_f = (v1+v2)**2/(((v1**2)/(n_pop1-1))+((v2**2)/(n_pop2-1)))
+
+    return T_val, deg_f
+#%%
+t, degf = unequal_variance_T_test(combined_stds[one_inds], combined_stds[two_inds])
+# %%
+from scipy.stats import ttest_ind
+onevtwo_t, onevtwo_p = ttest_ind(combined_stds[one_inds], combined_stds[two_inds], equal_var=False)
+onevthree_t, onevthree_p = ttest_ind(combined_stds[one_inds], combined_stds[three_inds], equal_var=False)
+twovthree_t, twovthree_p = ttest_ind(combined_stds[two_inds], combined_stds[three_inds], equal_var=False)
+# %%
+print(onevthree_p, onevtwo_p, twovthree_p)
 # %%
