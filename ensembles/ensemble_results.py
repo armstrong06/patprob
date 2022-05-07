@@ -46,18 +46,26 @@ plt.hist(combined_residuals, density=True, bins=np.arange(-0.95, 0.96, 0.01));
 plt.ylabel("Density", fontsize=14)
 plt.xlabel("Seconds", fontsize=14)
 #%%
-plt.hist(combined_residuals, density=True, bins=np.arange(-0.5, 0.51, 0.01), edgecolor="k" );
-plt.ylabel("Density", fontsize=14)
+plt.hist(combined_residuals, bins=np.arange(-0.5, 0.51, 0.01), edgecolor="k" );
+plt.ylabel("Counts", fontsize=14)
 plt.xlabel("Seconds", fontsize=14)
 #%%
 print(np.mean(combined_residuals))
 print(np.std(combined_residuals))
 print(compute_outer_fence_mean_standard_deviation(combined_residuals))
 #%%
+np.min(combined_residuals)
+#%%
+np.max(combined_residuals)
+#%%
 import h5py
 f = h5py.File("../data/uuss_test_fewerhist.h5", "r")
 X = f["X"][:]
 f.close()
+
+
+import pandas as pd
+meta_df = pd.read_csv("../data/uuss_test_fewerhist.csv")
 # %%
 wf_len = X.shape[1]
 wf_center = wf_len//2
@@ -68,7 +76,7 @@ for i in range(1000):
     shifted_predictions = combined_predictions[i, :]-shift
     shifted_pick = combined_means[i]-shift
     std = combined_stds[i]
-
+    quality = meta_df.iloc[i].pick_quality
     fig, ax = plt.subplots(1)
 
     # horizontal line at 0
@@ -99,16 +107,12 @@ for i in range(1000):
     # Plot gaussion over predictions
     ax.plot(hist_range, norm.pdf(hist_range, shifted_pick, std), color="r")
     ax.text(0.05, 0.9, f"std={str(round(std, 3))}", transform=ax.transAxes, fontsize=12)
+    ax.text(0.05, 0.8, f"apq={quality}", transform=ax.transAxes, fontsize=12)
     ax.set_ylabel("Density", fontsize=14)
     ax.set_xlabel("Seconds", fontsize=14)
     plt.savefig(f"{figdir}/test_wf_{i}.jpg")
     plt.close()
     #plt.show()
-# %%
-
-import pandas as pd
-
-meta_df = pd.read_csv("../data/uuss_test_fewerhist.csv")
 
 #%%
 
