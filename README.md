@@ -6,7 +6,7 @@
 
 ## Overview
 
-Uses the model architecture presented by Ross et al.(2018) to adjust an estimated P-arrival time to emulate the results of expert seismic analysts. The Bayesian approximation of the P-arrival time pick is determined by Stochastic Model Averaging - Gaussian (SWAG) (Maddox et al., 2019) into the training and evaluation of the Ross architecture. 
+Uses the model architecture presented by Ross et al.(2018) to adjust an estimated P-arrival time to emulate the results of expert seismic analysts. The Bayesian approximation of the P-arrival time pick is determined by incoporating Stochastic Model Averaging - Gaussian (SWAG) (Maddox et al., 2019) in training and evaluation of the Ross architecture. 
 
 ## File Structure 
 
