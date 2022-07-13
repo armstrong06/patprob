@@ -8,7 +8,7 @@ import tabulate
 import sys
 sys.path.append("/home/armstrong/Research/git_repos/patprob/swag_modified")
 from swag import seismic_data, losses, models, utils
-from swag.posteriors import SWAG, KFACLaplace
+from swag.posteriors import SWAG #, KFACLaplace
 
 parser = argparse.ArgumentParser(description="SGD/SWA training")
 parser.add_argument("--file", type=str, default=None, required=True, help="checkpoint")

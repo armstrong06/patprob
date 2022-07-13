@@ -24,9 +24,9 @@ for seed in ${seeds[@]}; do
         dir="./ensembles/seed${seed}_${batch_size}_${sgd_lr}_${weight_decay}_${swa_lr}"
         echo $dir
         python -u swag_modified/uncertainty/uncertainty.py --file="${dir}/swag-${epochs}.pt" \
-                --data_path="./data" --train_dataset="uuss_train.h5" --validation_dataset="uuss_validation.h5" \
+                --data_path="./data" --train_dataset="uuss_train.h5" --validation_dataset="uuss_train.h5" \
                 --n_duplicates_train=3 --batch_size=${batch_size} --method="SWAG" --cov_mat --scale=0.5 --seed=${seed}\
-                --save_path="${dir}/swag_validation_uncertainty"
+                --save_path="${dir}/swag_train_uncertainty"
         wait -n 
         wait
 done
